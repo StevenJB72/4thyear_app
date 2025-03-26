@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@inrupt/solid-client": "^2.1.2",
     "@inrupt/solid-client-authn-browser": "^2.3.0",
+    "@inrupt/vocab-common-rdf": "^1.0.5",
+    "dotenv": "^16.4.7",
     "next": "15.1.6",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
