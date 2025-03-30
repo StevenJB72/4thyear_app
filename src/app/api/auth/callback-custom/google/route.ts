@@ -7,13 +7,14 @@ export async function GET(req: Request) {
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
 
-  console.log("Custom callback received:");
-  console.log("Code:", code);
+  console.log("Custom Google callback received:");
+  console.log("Authorization Code:", code);
   console.log("State:", state);
 
-  // Redirect to the standard NextAuth callback to complete the login flow
-  const redirectUrl = new URL("http://localhost:3000/api/auth/callback/google");
-  if (code) redirectUrl.searchParams.set("code", code);
-  if (state) redirectUrl.searchParams.set("state", state);
-  return NextResponse.redirect(redirectUrl);
+  // Immediately halt the flow and return the intercepted code as JSON for manual testing.
+  return NextResponse.json({
+    message: "Google code intercepted for testing. Flow halted.",
+    code,
+    state,
+  });
 }

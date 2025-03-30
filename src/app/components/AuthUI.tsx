@@ -2,6 +2,7 @@
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
+import SolidLogin from "../components/SolidLogin"; // Adjust the path as necessary
 
 // -------------------------
 // Inline Style Constants
@@ -36,6 +37,8 @@ export default function AuthUI() {
   const [pkceEnabled, setPkceEnabled] = useState(false);
   // State for Attack Demo Mode toggle
   const [attackDemo, setAttackDemo] = useState(false);
+  // State to toggle display of the SolidLogin component
+  const [showSolidLogin, setShowSolidLogin] = useState(false);
 
   // ============================
   // Fetch PKCE status from the backend on mount
@@ -154,7 +157,13 @@ export default function AuthUI() {
                   <button
                     key={provider}
                     className={`${buttonBaseClasses} ${providerStyles[provider]}`}
-                    onClick={() => signIn(id, { callbackUrl })}
+                    onClick={() => {
+                      if (provider === "solid") {
+                        setShowSolidLogin(true);
+                      } else {
+                        signIn(id, { callbackUrl });
+                      }
+                    }}
                   >
                     {`Login with ${provider.charAt(0).toUpperCase() + provider.slice(1)}`}
                   </button>
@@ -187,6 +196,8 @@ export default function AuthUI() {
                 <div className="w-12 h-7 bg-gray-800 border border-gray-600 rounded-full shadow-inner peer-checked:bg-neon-glow peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all"></div>
               </label>
             </div>
+            {/* Embedded Solid Login */}
+            {showSolidLogin && <SolidLogin />}
           </>
         )}
       </div>
