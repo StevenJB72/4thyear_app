@@ -1,5 +1,3 @@
-// File: /src/app/api/auth/callback-custom/google/route.ts
-
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
